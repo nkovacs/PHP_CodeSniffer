@@ -341,9 +341,11 @@ class PEAR_Sniffs_Functions_FunctionCallSignatureSniff implements PHP_CodeSniffe
 
         $closeBracket = $tokens[$openBracket]['parenthesis_closer'];
         $prev         = $phpcsFile->findPrevious(T_WHITESPACE, ($closeBracket - 1), null, true);
+        $closeBracketLine = true;
         if ($tokens[$prev]['line'] === $tokens[$closeBracket]['line']) {
-            $error = 'Closing parenthesis of a multi-line function call must be on a line by itself';
-            $fix   = $phpcsFile->addFixableError($error, $closeBracket, 'CloseBracketLine');
+            $closeBracketLine = false;
+            $error            = 'Closing parenthesis of a multi-line function call must be on a line by itself';
+            $fix = $phpcsFile->addFixableError($error, $closeBracket, 'CloseBracketLine');
             if ($fix === true) {
                 $phpcsFile->fixer->addContentBefore(
                     $closeBracket,
@@ -418,8 +420,12 @@ class PEAR_Sniffs_Functions_FunctionCallSignatureSniff implements PHP_CodeSniffe
                     if ($tokens[$nextCode]['line'] === $tokens[$closeBracket]['line']) {
                         // Closing brace needs to be indented to the same level
                         // as the function call.
-                        $inArg          = false;
-                        $expectedIndent = $functionIndent;
+                        $inArg = false;
+                        if ($closeBracketLine === true) {
+                            $expectedIndent = $functionIndent;
+                        } else {
+                            $expectedIndent = ($functionIndent + $this->indent);
+                        }
                     } else {
                         $expectedIndent = ($functionIndent + $this->indent);
                     }
