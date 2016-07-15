@@ -24,7 +24,7 @@ class SelfMemberReferenceUnitTestExample
         $testResults[] = Self::selfMemberReferenceUnitTestFunction();
         $testResults[] = SELF::selfMemberReferenceUnitTestFunction();
         $testResults[] = SelfMemberReferenceUnitTestExample::selfMemberReferenceUnitTestFunction();
-
+        $testResults[] = \SelfMemberReferenceUnitTestExample::selfMemberReferenceUnitTestFunction();
 
         // Incorrect spacing.
         $testResults[] = self ::selfMemberReferenceUnitTestFunction();

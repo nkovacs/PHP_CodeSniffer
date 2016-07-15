@@ -46,6 +46,7 @@ class Squiz_Tests_Classes_SelfMemberReferenceUnitTest extends AbstractSniffUnitT
                 24  => 1,
                 25  => 1,
                 26  => 1,
+                27  => 1,
                 30  => 1,
                 31  => 1,
                 32  => 2,
